@@ -1,6 +1,6 @@
-import { commandWithText } from '~/helpers/commands';
-
-export default commandWithText(
-  'Начать',
-  'Спасибо за ваше доверие! Постараюсь вас не подвести.',
-);
+module.exports = {
+  trigger: 'Начать',
+  callback: (ctx) => {
+    ctx.reply('Спасибо за ваше доверие! Постараюсь вас не подвести.');
+  },
+};
