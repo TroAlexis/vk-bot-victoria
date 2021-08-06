@@ -1,12 +1,9 @@
 const { getDirectories } = require('~/helpers/files');
 const modules = require('~/modules');
 
-const allModules = getDirectories(require('path').join(__dirname, '..'));
+const allModules = getDirectories(require('path').join(__dirname, '..'))
+  .filter((module) => module !== '__tests__');
 
-describe.each(allModules)('Modules', (module) => {
-  if (module !== '__tests__') {
-    test(`contains ${module} module`, () => {
-      expect(modules).toHaveProperty(module);
-    });
-  }
+test.each(allModules)('contains %s module', (module) => {
+  expect(modules).toHaveProperty(module);
 });
