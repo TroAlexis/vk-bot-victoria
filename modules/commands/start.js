@@ -1,6 +1,6 @@
 module.exports = {
-  trigger: 'Начать',
-  callback: (ctx) => {
-    ctx.reply('Спасибо за ваше доверие! Постараюсь вас не подвести.');
+  trigger: /\/н[ао]?ч[а]?ть?/,
+  callback: async (ctx) => {
+    await ctx.scene.enter('start');
   },
 };
