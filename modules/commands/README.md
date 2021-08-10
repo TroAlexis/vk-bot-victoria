@@ -9,7 +9,7 @@ module.exports = {
 };
 ```
 
-index.js collects all the commands by and exports them in an object with filenames as keys.
+index.js collects all the commands and exports them in an object with filenames as keys.
 
 It ignores any files containing `.test` and `index` substrings.
 
