@@ -1,4 +1,4 @@
-const commands = require('~/modules/commands');
+const commands = require('~/modules/commands').default;
 
 test('doesn\'t contain test or index commands', () => {
   expect(Object.keys(commands)
