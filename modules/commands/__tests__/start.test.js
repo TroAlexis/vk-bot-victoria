@@ -1,4 +1,5 @@
-const { trigger } = require('../start');
+const { trigger, callback } = require('../start');
+const { ctxBaseWithScene } = require('~/mocks/contexts');
 
 const messages = ['/ночать', '/начать', '/нчть', '/начть', '/начат'];
 
@@ -10,4 +11,9 @@ const badMessages = ['ночать', 'начать', 'нчть', 'начть', '
 
 test.each(badMessages)('[%s] not starting with "/" doesn\'t trigger command', (command) => {
   expect(trigger.test(command)).toBeFalsy();
+});
+
+test('enters start scene', async () => {
+  await callback(ctxBaseWithScene);
+  expect(ctxBaseWithScene.scene.enter).toHaveBeenCalledWith('start');
 });
