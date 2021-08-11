@@ -37,9 +37,8 @@ setBotCommands(commands);
 
 bot.startPolling((err) => {
   if (err) {
-    console.error(err);
+    throw new Error(err);
   }
-  console.log('Polling started');
 });
 
 module.exports = {

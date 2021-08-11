@@ -1,4 +1,4 @@
-const { trigger, callback } = require('../start');
+const { trigger, callback } = require('../start').default;
 const { ctxBaseWithScene } = require('~/mocks/contexts');
 
 const messages = ['/ночать', '/начать', '/нчть', '/начть', '/начат'];
