@@ -1,6 +1,18 @@
 const { scenes } = require('~/modules/scenes');
+const { ctxBaseWithScene } = require('~/mocks/contexts');
 
-test.each(scenes)('$name contains name and middlewares', ({ name, middlewares }) => {
-  expect(name).toBeTruthy();
-  expect(middlewares.length).toBeGreaterThan(0);
+describe.each(scenes)('$name', ({ name, steps }) => {
+  test('contains name and middlewares', () => {
+    expect(name).toBeTruthy();
+    expect(steps.length).toBeGreaterThan(0);
+  });
+  const allStepsExceptLast = steps.slice(0, -1);
+  if (allStepsExceptLast.length) {
+    describe.each(allStepsExceptLast)('each step except for last', (middleware) => {
+      test('proceeds to next scene', () => {
+        middleware(ctxBaseWithScene);
+        expect(ctxBaseWithScene.scene.next).toHaveBeenCalled();
+      });
+    });
+  }
 });
