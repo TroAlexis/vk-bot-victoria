@@ -9,9 +9,11 @@ describe.each(scenes)('$name', ({ name, steps }) => {
   const allStepsExceptLast = steps.slice(0, -1);
   if (allStepsExceptLast.length) {
     describe.each(allStepsExceptLast)('each step except for last', (middleware) => {
-      test('proceeds to next scene', () => {
+      test('proceeds to next scene or enters another scene', async () => {
         middleware(ctxBaseWithScene);
-        expect(ctxBaseWithScene.scene.next).toHaveBeenCalled();
+        const nextCalled = !!ctxBaseWithScene.scene.next.mock.calls.length;
+        const enterCalled = !!ctxBaseWithScene.scene.enter.mock.calls.length;
+        expect(nextCalled || enterCalled).toBe(true);
       });
     });
   }
