@@ -15,6 +15,7 @@ const changeScene = (ctx, props) => {
 const changeSceneSafe = (ctx, props) => {
   // eslint-disable-next-line no-underscore-dangle
   const { current, step } = ctx.session.__scene;
+  // TODO [refactor] Check if just setting step to +1 is enough
   changeScene(ctx, {
     ...props,
     onError: (context) => {
