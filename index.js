@@ -29,7 +29,7 @@ const initBot = async () => {
       const admin = groupInfo?.response[0]?.contacts[0];
       adminId = admin.user_id;
     } catch (e) {
-      console.log(e);
+      console.warn('Error getting admin id: ', e);
     }
     return adminId;
   };
