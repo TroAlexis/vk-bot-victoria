@@ -1,25 +1,28 @@
 const emoji = require('node-emoji');
 const Markup = require('node-vk-bot-api/lib/markup');
 const api = require('~/helpers/api');
-const { capitalizeFirstLetter } = require('~/helpers/string');
+
 const { hasButtons } = require('~/helpers/context');
 const { getSceneChangerFromInput } = require('~/helpers/scenes');
+const { getButton } = require('~/helpers/markup');
 
-const name = 'начать';
+const {
+  start: name, rooms, availability,
+} = require('~/data/scenes-data');
 
-const categories = [['номера', 'цены'], 'доступность номеров'];
-const getButton = (text) => Markup.button(capitalizeFirstLetter(text), 'primary');
+const categories = [rooms, availability];
 const greetingButtons = Markup
-  .keyboard([
-    ...categories
-      .map((item) => {
-        if (Array.isArray(item)) {
-          return item.map((text) => getButton(text));
-        }
-        return [getButton(item)];
-      }),
-  ], { columns: 1 }).inline();
-const textIfNoButtons = capitalizeFirstLetter(categories.flat().join(', '));
+  .keyboard(categories
+    .map((item) => {
+      if (Array.isArray(item)) {
+        return item.map((text) => getButton(text));
+      }
+      return [getButton(item)];
+    }), { columns: 1 }).inline();
+const textIfNoButtons = `
+Напишите в ответе одну из категорий:
+${categories.flat().join(', ')}.
+`;
 const getGreetingButtons = (ctx) => (hasButtons(ctx) ? greetingButtons : null);
 const getGreetingsButtonsReplacement = (ctx) => (hasButtons(ctx) ? '' : textIfNoButtons);
 const getGreetingText = (ctx) => `
