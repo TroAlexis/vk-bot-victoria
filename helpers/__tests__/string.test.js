@@ -1,6 +1,6 @@
-const { capitalizeFirstLetter } = require('../string');
+const { capitalizeFirstLetter, isPositiveString } = require('../string');
 
-const testCases = [
+const capitalizeCases = [
   ['огонь', 'Огонь'],
   ['бУЛЬБА', 'БУЛЬБА'],
   ['ковер', 'Ковер'],
@@ -16,7 +16,46 @@ describe('capitalizeFirstLetter', () => {
     expect(capitalizeFirstLetter('')).toBe('');
   });
 
-  test.each(testCases)('transforms string %s correctly', (tested, expected) => {
+  test.each(capitalizeCases)('transforms string %s correctly', (tested, expected) => {
     expect(capitalizeFirstLetter(tested)).toBe(expected);
+  });
+});
+
+const isPositiveCases = [
+  {
+    tested: [
+      'давай',
+      'довай',
+      'дова',
+      'да',
+      'до',
+      'угу',
+      'ага',
+      'ога',
+      'харашо',
+      'хорашо',
+      'харошо',
+    ],
+    expected: true,
+  },
+  {
+    tested: [
+      'неа',
+      'нет',
+      'не',
+      'не надо',
+    ],
+    expected: false,
+  },
+];
+const [isPositiveTrue, isPositiveFalse] = isPositiveCases;
+
+describe('isPositiveString', () => {
+  test.each(isPositiveTrue.tested)('returns true for %s', (string) => {
+    expect(isPositiveString(string)).toBe(isPositiveTrue.expected);
+  });
+
+  test.each(isPositiveFalse.tested)('returns false for %s', (string) => {
+    expect(isPositiveString(string)).toBe(isPositiveFalse.expected);
   });
 });

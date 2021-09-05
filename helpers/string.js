@@ -7,11 +7,11 @@ function capitalizeFirstLetter(string) {
 
 // TODO Create positive answer matcher
 // eslint-disable-next-line no-unused-vars
-function isPositiveAnswer(string) {
-  return true;
+function isPositiveString(string) {
+  return /^(д[ао](вай?)?|[аоу]г[ау]|х[ао]р[ао]шо)/i.test(string);
 }
 
 module.exports = {
   capitalizeFirstLetter,
-  isPositiveAnswer,
+  isPositiveString,
 };
